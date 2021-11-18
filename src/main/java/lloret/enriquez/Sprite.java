@@ -60,7 +60,7 @@ public class Sprite {
     }
 
     public boolean update(Sprite[][] world) {
-        return false;
+        return true;
     }
 
     public void draw() {

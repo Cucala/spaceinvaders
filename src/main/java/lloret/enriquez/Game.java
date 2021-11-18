@@ -7,8 +7,11 @@ public class Game {
         board = new Board();
     }
 
-    public void update() {
-        board.update();
+    public boolean update() {
+        if (!board.update()) {
+            return false;
+        }
+        return true;
     }
 
     public void draw() {
@@ -17,7 +20,11 @@ public class Game {
 
     public static void main(String[] args) {
         Game game = new Game();
-        game.update();
         game.draw();
+        int cont = 4;
+        while (game.update() && cont > 0) {
+            game.draw();
+            cont--;
+        }
     }
 }

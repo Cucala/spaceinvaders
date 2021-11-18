@@ -54,12 +54,18 @@ public class Board {
         }
     }
 
-    public void update() {
-        for (int i = 0; i < world.length; i++) {
-            for (int j = 0; j < world[i].length; j++) {
-                world[i][j].update(world);
+    public boolean update() {
+        for (int i = world.length - 1; i > 0; i--) {
+            for (int j = world[i].length - 1; j > 0 ; j--) {
+                if(!world[i][j].update(world)) {
+                    return false;
+                }
+                if (i == 0 && j == 0) {
+                    return false;
+                }
             }
         }
+        return true;
     }
 
     public void draw() {
