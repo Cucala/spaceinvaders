@@ -37,29 +37,10 @@ public class Sprite {
     }
 
     public boolean collision(Sprite a) {
-        if(a.getType().compareTo("board") == 0){
-            return true;
-        }
-        else if(a.getType().compareTo("powerful") == 0) {
-            return true;
-        }
-        else if(a.getType().compareTo("normal") == 0) {
-            return true;
-        }
-        else if(a.getType().compareTo("boss") == 0) {
-            return true;
-        }
-        else if(a.getType().compareTo("space") == 0) {
-            return false;
-        }
-        else if(a.getType().compareTo("player") == 0) {
-            return false;
-        }
-
         return false;
     }
 
-    public boolean update(Sprite[][] world) {
+    public boolean update(Sprite[][] world, boolean direction) {
         return true;
     }
 

@@ -1,28 +1,30 @@
 package lloret.enriquez;
 
 public class Enemy extends Sprite {
-    protected static boolean actualDirection;
-    protected static boolean actualDown;
+    protected static boolean actualDown = false;
 
     public Enemy(String type, int x, int y) {
         super(type, x, y, "N", true, false, true);
-        actualDirection = true;
-        actualDown = false;
     }
 
     public Enemy(String type, int x, int y, String figure) {
         super(type, x, y, figure, true, false, true);
-        actualDirection = true;
-        actualDown = false;
     }
 
     @Override
-    public boolean update(Sprite[][] world) {
-        if(actualDirection) {
+    public boolean update(Sprite[][] world, boolean direction) {
+        if(direction) {
             if(y+1 < world[x].length) {
                 world[x][y+1] = this;
                 world[x][y] = new Sprite("space", x, y);
                 y++;
+            }
+        }
+        else {
+            if(y-1 > 0) {
+                world[x][y-1] = this;
+                world[x][y] = new Sprite("space", x, y);
+                y--;
             }
         }
         return true;

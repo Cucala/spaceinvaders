@@ -1,3 +1,4 @@
+
 package lloret.enriquez;
 
 public class Game {
@@ -21,7 +22,7 @@ public class Game {
     public static void main(String[] args) {
         Game game = new Game();
         game.draw();
-        int cont = 4;
+        int cont = 10;
         while (game.update() && cont > 0) {
             game.draw();
             cont--;

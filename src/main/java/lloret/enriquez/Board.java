@@ -2,9 +2,8 @@ package lloret.enriquez;
 
 public class Board {
     private Sprite[][] world;
-    private Enemy[] enemies;
-    private Bullet[] bullets;
     private Player player;
+    private static boolean direction = true;
 
     public Board() {
         world = new Sprite[10][20];
@@ -14,27 +13,22 @@ public class Board {
     private void createBoard() {
         for (int i = 0; i < world.length; i++) {
             for (int j = 0; j < world[i].length; j++) {
-                if (i == world.length-1) {
+                if (i == 0 || i == world.length - 1) {
                     world[i][j] = new Sprite("board", i, j, "-");
                 }
-                else if (i == 0) {
-                    world[i][j] = new Sprite("board",i, j, "-");
-                } else if (j == 0) {
-                    world[i][j] = new Sprite("board",i, j, "|");
-                }
-                else if (j == world[i].length-1) {
+                else if (j == 0 || j == world[i].length - 1) {
                     world[i][j] = new Sprite("board",i, j, "|");
                 }
                 else {
                     if (i ==1 && j >= 9 && j <= 10) {
                         world[i][j] = addEnemies(2, i, j);
                     }
-                    /*else if (i >= 2 && i <= 2 && j > 2 && j < world[i].length - 3 && j != 9 && j != 10) {
+                    else if (i >= 2 && i <= 2 && j > 2 && j < world[i].length - 3 && j != 9 && j != 10) {
                         world[i][j] = addEnemies(1, i, j);
                     }
                     else if (i >= 3 && i <= 4 && j > 2 && j < world[i].length - 3 && j != 9 && j != 10) {
                         world[i][j] = addEnemies(0, i, j);
-                    }*/
+                    }
                     else {
                         world[i][j] = new Sprite("space", i, j);
                     }
@@ -55,13 +49,27 @@ public class Board {
     }
 
     public boolean update() {
-        for (int i = world.length - 1; i > 0; i--) {
-            for (int j = world[i].length - 1; j > 0 ; j--) {
-                if(!world[i][j].update(world)) {
-                    return false;
+        if(direction){
+            for (int i = world.length - 2; i > 1; i--) {
+                for (int j = world[i].length - 2; j > 1 ; j--) {
+                    if(!world[i][j].update(world, direction)) {
+                        return false;
+                    }
+                    if(j == 1) {
+                        direction = direction ? false : true;
+                    }
                 }
-                if (i == 0 && j == 0) {
-                    return false;
+            }
+        }
+        else {
+            for (int i = 1; i < world.length - 2; i++) {
+                for (int j = 1; j < world[i].length - 2 ; j++) {
+                    if(!world[i][j].update(world, direction)) {
+                        return false;
+                    }
+                    if(j == world[i].length - 2) {
+                        direction = direction ? false : true;
+                    }
                 }
             }
         }

@@ -6,7 +6,7 @@ public class Bullet extends Sprite {
     }
 
     @Override
-    public boolean update(Sprite[][] world) {
+    public boolean update(Sprite[][] world, boolean direction) {
         return true;
     }
 
