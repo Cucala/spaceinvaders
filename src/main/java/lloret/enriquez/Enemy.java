@@ -1,6 +1,7 @@
 package lloret.enriquez;
 
 public class Enemy extends Sprite {
+    protected static boolean actualDirection = true;
     protected static boolean actualDown = false;
 
     public Enemy(String type, int x, int y) {
@@ -12,49 +13,37 @@ public class Enemy extends Sprite {
     }
 
     @Override
-    public boolean update(Sprite[][] world, boolean direction) {
-        if(direction) {
-            if(y+1 < world[x].length) {
-                world[x][y+1] = this;
-                world[x][y] = new Sprite("space", x, y);
-                y++;
-            }
+    public boolean update(Sprite[][] world) {
+        if( actualDown || y-1 == 1 || y+1 == world[x].length - 2 ){
+            moveDown(world);
         }
         else {
-            if(y-1 > 0) {
-                world[x][y-1] = this;
-                world[x][y] = new Sprite("space", x, y);
-                y--;
+            if(actualDirection) {
+                moveRight(world);
+            }
+            else {
+                moveLeft(world);
             }
         }
         return true;
     }
 
-    public void move(Sprite[][] world, int x, int y) {
-        int auxX = this.x;
-        int auxY = this.y;
-        this.x += x;
-        this.y += y;
-        world[this.x][ this.y] = this;
-        world[auxX][auxY] = new Sprite("space", auxX, auxY);
+    private void moveLeft(Sprite[][] world) {
+        world[x][y-1] = this;
+        world[x][y] = new Sprite("space", x, y);
+        y--;
     }
-}
 
-
-/*
-if(y + 1 < world[x].length && !actualDown && actualDirection && !collision(world[x][y+1])) {
-    move(world, 0,1);
-} else if (y - 1 > 0 && !actualDown && !collision(world[x][y-1])) {
-    move(world, 0,-1);
-}
-else {
-    actualDirection = actualDirection ? false : true;
-}
-if(actualDown) {
-    if (x + 1 < world.length && !collision(world[x+1][y])) {
-        move(world, 1,0);
-    } else {
-        return false;
+    private void moveRight(Sprite[][] world) {
+        world[x][y+1] = this;
+        world[x][y] = new Sprite("space", x, y);
+        y++;
     }
+
+    private void moveDown(Sprite[][] world) {
+        world[x+1][y] = this;
+        world[x][y] = new Sprite("space", x, y);
+        x++;
+    }
+
 }
-* */

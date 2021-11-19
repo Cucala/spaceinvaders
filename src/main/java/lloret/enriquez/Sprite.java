@@ -40,9 +40,7 @@ public class Sprite {
         return false;
     }
 
-    public boolean update(Sprite[][] world, boolean direction) {
-        return true;
-    }
+    public boolean update(Sprite[][] world) { return true; }
 
     public void draw() {
         System.out.print(figure);
